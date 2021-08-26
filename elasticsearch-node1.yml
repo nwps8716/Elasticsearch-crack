@@ -1,0 +1,23 @@
+version: '3'
+services:
+  lid-es01:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.13.4
+    container_name: lid-es01
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      # - ./data:/usr/share/elasticsearch/data/
+      - ./config/crack-x-pack-core-7.13.4.jar:/usr/share/elasticsearch/modules/x-pack-core/x-pack-core-7.13.4.jar
+      # - ./config/elastic-stack-ca.p12:/usr/share/elasticsearch/config/elastic-stack-ca.p12
+      - ./config/elasticsearch-node1.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./config/lid-jvm.options:/usr/share/elasticsearch/config/jvm.options.d/lid-jvm.options
+    ports:
+      - 9200:9200
+      - 9300:9300
+    networks:
+      - efk
+networks:
+  efk:
+    driver: bridge

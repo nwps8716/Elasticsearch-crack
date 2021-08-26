@@ -1,0 +1,24 @@
+cluster.name: es-docker-cluster
+node.name: lid-es02
+discovery.seed_hosts:
+  - 10.32.66.121
+  - 10.32.66.125
+cluster.initial_master_nodes:
+  - lid-es01
+  - lid-es02
+bootstrap.memory_lock: true
+network.bind_host: 0.0.0.0
+network.publish_host: 10.32.66.125
+transport.tcp.compress: true
+
+### X-Pack ###
+# 第一次啟動需設定為 false，才能允許上傳修改過的 license (需要先完成破解x-pack-core)。
+# xpack.security.enabled: true
+xpack.security.enabled: false
+
+### TSL CA ###
+# 第一次啟動後需到容器內生成 TSL CA 內部資料加密用
+# xpack.security.transport.ssl.enabled: true
+# xpack.security.transport.ssl.verification_mode: certificate
+# xpack.security.transport.ssl.keystore.path: /usr/share/elasticsearch/config/elastic-stack-ca.p12
+# xpack.security.transport.ssl.truststore.path: /usr/share/elasticsearch/config/elastic-stack-ca.p12
